@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { getTerminaleRelease } from "@/lib/terminale";
 
 export const metadata: Metadata = {
   title: "terminale — the cross-platform terminal that doesn't suck",
@@ -28,7 +29,9 @@ const TerminaleStats = dynamic(() => import("@/components/terminale/TerminaleSta
 const TerminaleInstall = dynamic(() => import("@/components/terminale/TerminaleInstall"), { loading: () => null });
 const TerminaleCTA = dynamic(() => import("@/components/terminale/TerminaleCTA"), { loading: () => null });
 
-export default function TerminalePage() {
+export default async function TerminalePage() {
+  const release = await getTerminaleRelease();
+
   return (
     <>
       <NoiseOverlay />
@@ -40,7 +43,7 @@ export default function TerminalePage() {
         <TerminaleFeatures />
         <TerminaleGallery />
         <TerminaleStats />
-        <TerminaleInstall />
+        <TerminaleInstall release={release} />
         <TerminaleCTA />
         <Footer />
       </main>

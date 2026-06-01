@@ -2,11 +2,12 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Check, Copy } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Check, Copy, Download, Terminal } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Button from "@/components/Button";
 import TerminalChrome from "@/components/terminale/TerminalChrome";
 import { cn } from "@/lib/utils";
+import type { DownloadId, TerminaleRelease } from "@/lib/terminale";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,11 +25,107 @@ const COMMANDS: Record<OsKey, string> = {
 
 const OS_TABS: OsKey[] = ["macOS / Linux", "Windows", "Homebrew", "From source"];
 
-export default function TerminaleInstall() {
+type CoarseOs = "windows" | "mac" | "linux";
+
+type UaData = {
+  platform?: string;
+  getHighEntropyValues?: (
+    hints: string[]
+  ) => Promise<{ architecture?: string }>;
+};
+
+function getUaData(): UaData | undefined {
+  if (typeof navigator === "undefined") return undefined;
+  return (navigator as Navigator & { userAgentData?: UaData }).userAgentData;
+}
+
+// Best-effort client-side OS detection — drives both the highlighted direct
+// download and the pre-selected terminal tab. Returns null when we can't tell.
+function detectOs(): CoarseOs | null {
+  if (typeof navigator === "undefined") return null;
+  const hint = (
+    getUaData()?.platform ||
+    navigator.platform ||
+    navigator.userAgent ||
+    ""
+  ).toLowerCase();
+  if (hint.includes("win")) return "windows";
+  if (hint.includes("mac")) return "mac";
+  if (hint.includes("linux") || hint.includes("x11") || hint.includes("android")) {
+    return "linux";
+  }
+  return null;
+}
+
+// Non-mac platforms map straight to a download. macOS resolves its arch
+// (Apple Silicon vs Intel) asynchronously — see the detection effect below.
+const OS_TO_DOWNLOAD: Record<Exclude<CoarseOs, "mac">, DownloadId> = {
+  windows: "windows",
+  linux: "linux",
+};
+
+const OS_TO_TAB: Record<CoarseOs, OsKey> = {
+  windows: "Windows",
+  mac: "macOS / Linux",
+  linux: "macOS / Linux",
+};
+
+export default function TerminaleInstall({
+  release,
+}: {
+  release: TerminaleRelease;
+}) {
   const rootRef = useRef<HTMLElement>(null);
   const [activeOs, setActiveOs] = useState<OsKey>("macOS / Linux");
+  const [detectedDownload, setDetectedDownload] = useState<DownloadId | null>(
+    null
+  );
   const [copied, setCopied] = useState(false);
   const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Detect the visitor's OS once, post-hydration (keeps SSR markup stable).
+  useEffect(() => {
+    const os = detectOs();
+    if (!os) return;
+    setActiveOs(OS_TO_TAB[os]);
+
+    if (os !== "mac") {
+      setDetectedDownload(OS_TO_DOWNLOAD[os]);
+      return;
+    }
+
+    // macOS: resolve Apple Silicon vs Intel via UA-CH high-entropy hints
+    // (Chromium only). Safari/Firefox don't expose it → Apple Silicon, the
+    // modern default. Intel reports architecture "x86".
+    const uaData = getUaData();
+    if (!uaData?.getHighEntropyValues) {
+      setDetectedDownload("mac-arm");
+      return;
+    }
+    let cancelled = false;
+    uaData
+      .getHighEntropyValues(["architecture"])
+      .then((v) => {
+        if (cancelled) return;
+        const arch = (v.architecture || "").toLowerCase();
+        setDetectedDownload(arch.includes("x86") ? "mac-intel" : "mac-arm");
+      })
+      .catch(() => {
+        if (!cancelled) setDetectedDownload("mac-arm");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const { primary, others } = useMemo(() => {
+    const list = release.downloads;
+    const primary = detectedDownload
+      ? list.find((d) => d.id === detectedDownload) ?? null
+      : null;
+    const others = primary ? list.filter((d) => d.id !== primary.id) : list;
+    return { primary, others };
+  }, [release.downloads, detectedDownload]);
 
   // Cleanup copy timer on unmount
   useEffect(() => {
@@ -96,11 +193,7 @@ export default function TerminaleInstall() {
   };
 
   return (
-    <section
-      ref={rootRef}
-      id="install"
-      className="py-24 sm:py-32 relative"
-    >
+    <section ref={rootRef} id="install" className="py-24 sm:py-32 relative">
       {/* Ambient orbs */}
       <div className="absolute top-1/3 right-0 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[120px] pointer-events-none hidden md:block" />
       <div className="absolute bottom-0 left-0 w-[350px] h-[350px] bg-primary/10 rounded-full blur-[100px] pointer-events-none hidden md:block" />
@@ -112,7 +205,7 @@ export default function TerminaleInstall() {
             INSTALL
           </p>
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-4">
-            <span className="text-foreground">One line.</span>{" "}
+            <span className="text-foreground">Download.</span>{" "}
             <span className="relative inline-block">
               <span className="gradient-rainbow-text">Then it&apos;s yours.</span>
               <span className="absolute inset-0 gradient-rainbow-text blur-[20px] opacity-60 pointer-events-none">
@@ -122,13 +215,92 @@ export default function TerminaleInstall() {
           </h2>
           <p className="text-sm font-mono text-gray-500 tracking-wide">
             Early but real.
+            {release.version && (
+              <span className="text-primary-light">
+                {" "}
+                — latest {release.version}
+              </span>
+            )}
           </p>
         </div>
 
-        {/* Install panel */}
-        <div className="install-panel rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden mb-12">
+        {/* Direct downloads */}
+        <div className="install-panel rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 sm:p-8 mb-12">
+          {primary ? (
+            <>
+              <Button
+                href={primary.url}
+                variant="gradient"
+                size="lg"
+                leftIcon={<Download className="w-5 h-5" />}
+                rel="noopener"
+              >
+                Download for {primary.label}
+                <span className="ml-4 rounded border border-white/25 px-2 py-0.5 font-mono text-xs opacity-80">
+                  {primary.kind}
+                </span>
+              </Button>
+
+              <div className="mt-6">
+                <p className="text-xs uppercase tracking-wider font-semibold text-gray-400 mb-3">
+                  Other platforms
+                </p>
+                <div className="flex flex-wrap gap-2.5">
+                  {others.map((d) => (
+                    <Button
+                      key={d.id}
+                      href={d.url}
+                      variant="outline"
+                      size="sm"
+                      leftIcon={<Download className="w-4 h-4" />}
+                      rel="noopener"
+                    >
+                      {d.label}
+                      <span className="ml-4 rounded border border-white/15 px-1.5 py-0.5 font-mono text-[10px] opacity-70">
+                        {d.kind}
+                      </span>
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="text-xs uppercase tracking-wider font-semibold text-gray-400 mb-3">
+                Download
+              </p>
+              <div className="flex flex-wrap gap-2.5">
+                {others.map((d) => (
+                  <Button
+                    key={d.id}
+                    href={d.url}
+                    variant="outline"
+                    size="md"
+                    leftIcon={<Download className="w-4 h-4" />}
+                    rel="noopener"
+                  >
+                    {d.label}
+                    <span className="ml-2.5 rounded border border-white/15 px-1.5 py-0.5 font-mono text-[10px] opacity-70">
+                      {d.kind}
+                    </span>
+                  </Button>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Terminal install (secondary) */}
+        <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden mb-12">
+          <div className="flex items-center gap-2 px-4 sm:px-6 pt-5 pb-4 border-b border-white/10">
+            <Terminal className="w-4 h-4 text-gray-400" />
+            <span className="text-sm font-semibold text-gray-300">
+              Prefer the terminal?
+            </span>
+          </div>
+
           {/* OS tab bar */}
-          <div className="flex items-center gap-1 px-4 pt-4 pb-0 border-b border-white/10 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-1 px-4 pt-4 pb-0 overflow-x-auto no-scrollbar">
             {OS_TABS.map((os) => (
               <button
                 key={os}
@@ -184,11 +356,7 @@ export default function TerminaleInstall() {
 
         {/* All releases link */}
         <div className="flex justify-start">
-          <Button
-            href="https://github.com/fbrzlarosa/terminale/releases"
-            target="_blank"
-            variant="outline"
-          >
+          <Button href={release.releasesUrl} target="_blank" variant="outline">
             All releases
           </Button>
         </div>
