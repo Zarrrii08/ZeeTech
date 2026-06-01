@@ -30,6 +30,14 @@ export default function Logo({
     }, 150);
   };
 
+  // Clicking the ICON only cycles the accent color — it must NOT bubble up to the
+  // wrapping <Link href="/"> (otherwise it would also navigate / scroll to top).
+  const handleIconClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onIconClick?.(e);
+  };
+
   useEffect(() => {
     if (!svgRef.current) return;
 
@@ -148,14 +156,19 @@ export default function Logo({
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 1085.2 257.1"
       className={className}
-      onMouseDown={handlePressStart}
-      onMouseUp={handlePressEnd}
-      onMouseLeave={() => setIsPressed(false)}
-      onClick={onIconClick}
       aria-label="Stackbyte Logo - Fabrizio La Rosa Full Stack Developer"
       role="img"
     >
-      <g className="cursor-pointer" style={{ pointerEvents: "all" }}>
+      <g
+        className="cursor-pointer"
+        style={{ pointerEvents: "all" }}
+        onMouseDown={handlePressStart}
+        onMouseUp={handlePressEnd}
+        onMouseLeave={() => setIsPressed(false)}
+        onClick={handleIconClick}
+        role="button"
+        aria-label="Cycle accent color"
+      >
         <path
           ref={iconPath1Ref}
           d="M374.7,140.2c12.1,6.7,12.1,17.4,0,24.2L214,252.2c-12.1,6.6-32.1,6.6-44.2,0L9.1,164.4c-12.1-6.9-12.1-17.5,0-24.2l30.8-16.8c-3.8,5-2.1,11,5.3,15.1l129.1,70.4c9.7,5.3,25.7,5.3,35.4,0l129.1-70.4c7.4-4.1,9.1-10.1,5.3-15.1L374.7,140.2z"

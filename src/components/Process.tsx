@@ -368,11 +368,12 @@ export default function Process() {
       });
 
       if (lineRef.current) {
+        // scaleX avoids width-based layout reflow; origin-left is on the element.
         gsap.fromTo(
           lineRef.current,
-          { width: 0 },
+          { scaleX: 0 },
           {
-            width: "100%",
+            scaleX: 1,
             duration: 1.5,
             ease: "power2.inOut",
             scrollTrigger: {
@@ -421,11 +422,12 @@ export default function Process() {
       );
 
       if (lineRef.current) {
+        // scaleX avoids width-based layout reflow; origin-left is on the element.
         gsap.fromTo(
           lineRef.current,
-          { width: 0 },
+          { scaleX: 0 },
           {
-            width: "100%",
+            scaleX: 1,
             duration: 1.5,
             ease: "power2.inOut",
             scrollTrigger: {
@@ -516,7 +518,7 @@ export default function Process() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 relative">
           <div className="hidden lg:block absolute top-12 left-0 w-full h-0.5 bg-white/10 -z-10">
-            <div ref={lineRef} className="h-full bg-primary/30" />
+            <div ref={lineRef} className="h-full bg-primary/30 origin-left" />
           </div>
 
           {steps.map((step, index) => {

@@ -117,6 +117,11 @@ const SkillsShowcase = dynamic(() => import("@/components/SkillsShowcase"), {
   loading: () => null,
 });
 
+const TerminaleShowcase = dynamic(
+  () => import("@/components/TerminaleShowcase"),
+  { loading: () => null }
+);
+
 export default async function Home() {
   const posts = await getDevToPosts();
   return (
@@ -132,6 +137,7 @@ export default async function Home() {
         <About />
         <Process />
         <SkillsShowcase />
+        <TerminaleShowcase />
         <ReadyToStart />
         <DevToPosts posts={posts} />
         <Contact />

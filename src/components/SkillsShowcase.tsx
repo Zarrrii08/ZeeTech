@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import ScrollingBackgroundText from "./ScrollingBackgroundText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -280,27 +279,6 @@ function SkillCard({ skill, index, isMobile }: SkillCardProps) {
                 [enterStart, enterEnd, exitStart, exitEnd],
                 [540, 22, -22, -540]
               );
-          const rotateY = isMobile
-            ? 0
-            : getValue(
-                p,
-                [enterStart, enterEnd, exitStart, exitEnd],
-                [45, 5, -5, -45]
-              );
-          const rotateZ = isMobile
-            ? 0
-            : getValue(
-                p,
-                [enterStart, enterEnd, exitStart, exitEnd],
-                [10, 2, -2, -10]
-              );
-          const z = isMobile
-            ? 0
-            : getValue(
-                p,
-                [enterStart, enterEnd, exitStart, exitEnd],
-                [-1200, 0, 100, -1200]
-              );
           const scale = isMobile
             ? getValue(
                 p,
@@ -325,48 +303,29 @@ function SkillCard({ skill, index, isMobile }: SkillCardProps) {
               opacity,
               x,
               y,
-              rotateY,
-              rotateZ,
-              z,
               scale,
-              transformPerspective: 1000,
               zIndex: 10 - index,
             });
           }
 
           if (badgeRef.current) {
-            gsap.set(badgeRef.current, {
-              x: contentParallaxX,
-              translateZ: 20,
-            });
+            gsap.set(badgeRef.current, { x: contentParallaxX });
           }
 
           if (titleRef.current) {
-            gsap.set(titleRef.current, {
-              x: titleParallaxX,
-              translateZ: 40,
-            });
+            gsap.set(titleRef.current, { x: titleParallaxX });
           }
 
           if (paraRef.current) {
-            gsap.set(paraRef.current, {
-              x: contentParallaxX,
-              translateZ: 30,
-            });
+            gsap.set(paraRef.current, { x: contentParallaxX });
           }
 
           if (detailsRef.current) {
-            gsap.set(detailsRef.current, {
-              x: contentParallaxX,
-              translateZ: 25,
-            });
+            gsap.set(detailsRef.current, { x: contentParallaxX });
           }
 
           if (linkRef.current) {
-            gsap.set(linkRef.current, {
-              x: contentParallaxX,
-              translateZ: 35,
-            });
+            gsap.set(linkRef.current, { x: contentParallaxX });
           }
         },
       });
@@ -631,10 +590,21 @@ function ScrollingBackgroundTextWrapper({
   className?: string;
   style?: React.CSSProperties;
 }) {
-  const [progress, setProgress] = useState(0);
+  // Drive the text position imperatively to avoid React re-renders every
+  // scrub frame. Replicates the px-based calculation from ScrollingBackgroundText.
+  const textElRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || !textElRef.current) return;
+
+    const el = textElRef.current;
+    let elWidth = el.scrollWidth;
+    const winWidth = window.innerWidth;
+
+    const onResize = () => {
+      elWidth = el.scrollWidth;
+    };
+    window.addEventListener("resize", onResize, { passive: true });
 
     const scrollTrigger = ScrollTrigger.create({
       trigger: containerRef.current,
@@ -642,23 +612,21 @@ function ScrollingBackgroundTextWrapper({
       end: "bottom-=400vh top",
       scrub: true,
       onUpdate: (self) => {
-        setProgress(self.progress);
+        const x = winWidth + self.progress * (-elWidth - winWidth);
+        gsap.set(el, { x });
       },
     });
 
     return () => {
+      window.removeEventListener("resize", onResize);
       scrollTrigger.kill();
     };
   }, [containerRef]);
 
   return (
-    <ScrollingBackgroundText
-      progress={progress}
-      className={className}
-      style={style}
-    >
+    <div ref={textElRef} className={className} style={style}>
       {children}
-    </ScrollingBackgroundText>
+    </div>
   );
 }
 

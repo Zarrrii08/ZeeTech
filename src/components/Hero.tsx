@@ -205,88 +205,53 @@ export default function Hero() {
         );
       }
 
+      // quickSetter instances avoid the overhead of re-parsing the target
+      // on every scrub frame — one function call per property per element.
+      const setContainerY = gsap.quickSetter(containerRef.current!, "y", "px");
+      const setH1 = (p: number) => gsap.set(h1Ref.current, {
+        x: -p * 100,
+        scale: 1 - p * 0.2,
+        opacity: 1 - p * 0.3,
+      });
+      const setSpans = (p: number) => {
+        const spanEls = [
+          span1Ref.current,
+          span2Ref.current,
+          span3Ref.current,
+          span4Ref.current,
+        ].filter(Boolean);
+        if (spanEls.length) {
+          gsap.set(spanEls, {
+            y: p * 30,
+            scale: 1 - p * 0.1,
+            opacity: 1 - p * 0.3,
+          });
+        }
+      };
+      const setButtonsY = gsap.quickSetter(buttonsRef.current!, "y", "px");
+      const setButtonsOp = gsap.quickSetter(buttonsRef.current!, "opacity");
+      const setParaOp = gsap.quickSetter(paraRef.current!, "opacity");
+      const setParaY = gsap.quickSetter(paraRef.current!, "y", "px");
+      const setStatsOp = gsap.quickSetter(statsRef.current!, "opacity");
+      const setStatsY = gsap.quickSetter(statsRef.current!, "y", "px");
+
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
         end: "bottom top",
         scrub: 1,
         onUpdate: (self) => {
-          const progress = self.progress;
+          const p = self.progress;
 
-          if (containerRef.current) {
-            gsap.set(containerRef.current, {
-              y: -progress * 200,
-            });
-          }
-
-          if (h1Ref.current) {
-            gsap.set(h1Ref.current, {
-              rotateX: progress * 20,
-              x: -progress * 100,
-              z: -progress * 200,
-              scale: 1 - progress * 0.2,
-              opacity: 1 - progress * 0.3,
-              transformPerspective: 1500,
-            });
-          }
-
-          if (paraRef.current) {
-            gsap.set(paraRef.current, {
-              rotateX: progress * 10,
-              y: progress * 20,
-              z: -progress * 100,
-              opacity: 1 - progress * 0.4,
-            });
-          }
-
-          if (span1Ref.current) {
-            gsap.set(span1Ref.current, {
-              rotateX: progress * 15,
-              y: progress * 30,
-              scale: 1 - progress * 0.1,
-              opacity: 1 - progress * 0.3,
-            });
-          }
-          if (span2Ref.current) {
-            gsap.set(span2Ref.current, {
-              rotateX: progress * 15,
-              y: progress * 30,
-              scale: 1 - progress * 0.1,
-              opacity: 1 - progress * 0.3,
-            });
-          }
-          if (span3Ref.current) {
-            gsap.set(span3Ref.current, {
-              rotateX: progress * 15,
-              y: progress * 30,
-              scale: 1 - progress * 0.1,
-              opacity: 1 - progress * 0.3,
-            });
-          }
-          if (span4Ref.current) {
-            gsap.set(span4Ref.current, {
-              rotateX: progress * 15,
-              y: progress * 30,
-              scale: 1 - progress * 0.1,
-              opacity: 1 - progress * 0.3,
-            });
-          }
-
-          if (buttonsRef.current) {
-            gsap.set(buttonsRef.current, {
-              y: progress * 20,
-              z: -progress * 50,
-              opacity: 1 - progress * 0.5,
-            });
-          }
-
-          if (statsRef.current) {
-            gsap.set(statsRef.current, {
-              rotateX: progress * 20,
-              y: progress * 20,
-              opacity: 1 - progress * 0.5,
-            });
-          }
+          setContainerY(-p * 200);
+          setH1(p);
+          setSpans(p);
+          setParaY(p * 20);
+          setParaOp(1 - p * 0.4);
+          setButtonsY(p * 20);
+          setButtonsOp(1 - p * 0.5);
+          setStatsY(p * 20);
+          setStatsOp(1 - p * 0.5);
         },
       });
 

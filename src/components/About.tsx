@@ -422,7 +422,9 @@ export default function About() {
       }
 
       if (timelineFillRef.current && containerRef.current) {
-        gsap.set(timelineFillRef.current, { height: "0%" });
+        // Use scaleY instead of height to avoid layout reflow on every frame.
+        // transform-origin is set to top so it grows downward.
+        gsap.set(timelineFillRef.current, { scaleY: 0 });
 
         ScrollTrigger.create({
           trigger: containerRef.current,
@@ -430,11 +432,8 @@ export default function About() {
           end: "bottom-=20% bottom",
           scrub: 1,
           onUpdate: (self) => {
-            const progress = self.progress;
             if (timelineFillRef.current) {
-              gsap.set(timelineFillRef.current, {
-                height: `${progress * 100}%`,
-              });
+              gsap.set(timelineFillRef.current, { scaleY: self.progress });
             }
           },
         });
@@ -595,7 +594,7 @@ export default function About() {
 
             <div
               ref={timelineFillRef}
-              className="absolute left-8 top-0 w-px bg-linear-to-b from-primary via-primary-dark to-primary hidden sm:block origin-top"
+              className="absolute left-8 top-0 bottom-0 w-px bg-linear-to-b from-primary via-primary-dark to-primary hidden sm:block origin-top"
             />
 
             <div className="space-y-4 sm:space-y-12">

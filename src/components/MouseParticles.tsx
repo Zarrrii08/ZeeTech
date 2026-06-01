@@ -49,10 +49,11 @@ export default function MouseParticles() {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const now = performance.now();
-      if (now - lastTime.current < 100) return;
+      // 150ms throttle + 50% skip: fewer state updates, less re-render churn
+      if (now - lastTime.current < 150) return;
       lastTime.current = now;
 
-      if (Math.random() > 0.3) return;
+      if (Math.random() > 0.5) return;
 
       const newParticle = {
         id: particleId.current++,
@@ -61,7 +62,7 @@ export default function MouseParticles() {
         text: codeSnippets[Math.floor(Math.random() * codeSnippets.length)],
       };
 
-      setParticles((prev) => [...prev, newParticle].slice(-6));
+      setParticles((prev) => [...prev, newParticle].slice(-4));
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });

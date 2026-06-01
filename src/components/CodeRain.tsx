@@ -36,8 +36,8 @@ export default function CodeRain() {
       if (typeof window === "undefined") return;
 
       const isMobile = window.innerWidth < 768;
-      // Reduced number of columns for performance
-      const cols = Array.from({ length: isMobile ? 5 : 12 }).map(() => ({
+      // Fewer columns reduces DOM node count and CSS animation cost
+      const cols = Array.from({ length: isMobile ? 4 : 8 }).map(() => ({
         delay: `${Math.random() * -30}s`,
         duration: `${30 + Math.random() * 20}s`,
         opacity: Math.random() * 0.5 + 0.3,
@@ -81,8 +81,8 @@ export default function CodeRain() {
               willChange: "transform", // Hint for browser optimization
             }}
           >
-            {/* Reduced repetitions to minimize DOM nodes (was 10, now 4) */}
-            {Array.from({ length: 4 }).map((_, k) => (
+            {/* 3 repetitions keep visual density while reducing DOM nodes */}
+            {Array.from({ length: 3 }).map((_, k) => (
               <div key={k}>
                 {col.snippets.map((snippet, j) => (
                   <div key={j} className="transform rotate-0 mb-4">

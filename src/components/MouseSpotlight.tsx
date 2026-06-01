@@ -5,41 +5,30 @@ import { useEffect, useRef } from "react";
 export default function MouseSpotlight() {
   const ref = useRef<HTMLDivElement>(null);
   const rafId = useRef<number | null>(null);
-  const mousePosition = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    let lastUpdate = 0;
-    const throttleMs = 32;
+    const el = ref.current;
+    if (!el) return;
 
-    const updateBackground = () => {
-      if (typeof window === "undefined") return;
-      const now = performance.now();
-      if (now - lastUpdate < throttleMs) {
-        rafId.current = requestAnimationFrame(updateBackground);
-        return;
-      }
-      lastUpdate = now;
-
-      if (ref.current) {
-        ref.current.style.background = `radial-gradient(600px circle at ${mousePosition.current.x}px ${mousePosition.current.y}px, rgba(var(--primary-rgb), 0.03), rgba(var(--primary-rgb), 0) 120px)`;
-      }
-      rafId.current = requestAnimationFrame(updateBackground);
-    };
-
+    // Write position as CSS custom properties instead of recomputing the full
+    // radial-gradient string every frame. The browser composites this on the
+    // GPU without triggering a JS paint callback on every frame.
     const handleMouseMove = (e: MouseEvent) => {
-      mousePosition.current = { x: e.clientX, y: e.clientY };
-      if (rafId.current === null) {
-        rafId.current = requestAnimationFrame(updateBackground);
-      }
+      if (rafId.current !== null) return; // one pending rAF at most
+      rafId.current = requestAnimationFrame(() => {
+        el.style.setProperty("--mx", `${e.clientX}px`);
+        el.style.setProperty("--my", `${e.clientY}px`);
+        rafId.current = null;
+      });
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    rafId.current = requestAnimationFrame(updateBackground);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       if (rafId.current !== null) {
         cancelAnimationFrame(rafId.current);
+        rafId.current = null;
       }
     };
   }, []);
@@ -49,7 +38,9 @@ export default function MouseSpotlight() {
       ref={ref}
       className="pointer-events-none fixed inset-0 z-30 hidden md:block"
       style={{
-        willChange: "background",
+        // Static gradient referencing the CSS vars — no JS paint per frame
+        background:
+          "radial-gradient(600px circle at var(--mx, -9999px) var(--my, -9999px), rgba(var(--primary-rgb), 0.03), rgba(var(--primary-rgb), 0) 120px)",
         contain: "layout style paint",
       }}
     />

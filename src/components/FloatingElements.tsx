@@ -193,7 +193,7 @@ export default function FloatingElements() {
           ref={(el) => {
             shapeRefs.current[i] = el;
           }}
-          className="absolute w-20 h-20 border border-primary/20 rounded-2xl backdrop-blur-sm"
+          className="absolute w-20 h-20 border border-primary/20 rounded-2xl bg-primary/5"
           style={{
             opacity: 0.1,
             willChange: "transform",

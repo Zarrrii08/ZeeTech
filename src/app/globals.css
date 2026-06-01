@@ -194,6 +194,25 @@ html.lenis body {
   animation: gradient 8s linear infinite;
 }
 
+.gradient-rainbow-text {
+  background: linear-gradient(
+    to right,
+    #ff5555 0%,
+    #ffb86c 14%,
+    #f1fa8c 28%,
+    #50fa7b 42%,
+    #8be9fd 56%,
+    #bd93f9 70%,
+    #ff5555 100%
+  );
+  background-size: 300% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradient 8s linear infinite;
+}
+
 .gradient-animated-glow {
   background: linear-gradient(
     to right,

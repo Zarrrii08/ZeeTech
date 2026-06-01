@@ -16,6 +16,7 @@ import {
   Zap,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useBackground } from "../context/BackgroundContext";
 import Button from "./Button";
@@ -47,6 +48,7 @@ const navLinks = [
   { name: "My Story", href: "#about" },
   { name: "How I Work", href: "#process" },
   { name: "Expertise", href: "#services" },
+  { name: "Terminale", href: "/terminale" },
   { name: "Posts", href: "#posts" },
 ];
 
@@ -59,6 +61,12 @@ export default function Navbar() {
   const [isClosingModal, setIsClosingModal] = useState(false);
   const [time, setTime] = useState("");
   const { cycleTheme } = useBackground();
+  const pathname = usePathname();
+  // Section anchors (#about, #process…) live on the home page. When we're on a
+  // different route (e.g. /terminale) turn "#about" into "/#about" so the link
+  // navigates home first and then to the section.
+  const resolveHash = (href: string) =>
+    href.startsWith("#") && pathname !== "/" ? `/${href}` : href;
   const navRef = useRef<HTMLElement>(null);
   const hamburgerLine1Ref = useRef<HTMLSpanElement>(null);
   const hamburgerLine2Ref = useRef<HTMLSpanElement>(null);
@@ -336,20 +344,46 @@ export default function Navbar() {
 
           {/* Desktop Menu - Minimal & Modern */}
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
-            {navLinks.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`text-sm font-medium transition-colors relative group cursor-pointer ${
-                  isScrolled
+            {navLinks.map((item) => {
+              const isActive =
+                item.href.startsWith("/") && pathname === item.href;
+              const crossRoute =
+                item.href.startsWith("#") && pathname !== "/";
+              const href = crossRoute ? `/${item.href}` : item.href;
+              const className = `text-sm font-medium transition-colors relative group cursor-pointer ${
+                isActive
+                  ? "text-white"
+                  : isScrolled
                     ? "text-gray-300 hover:text-white"
                     : "text-white/90 hover:text-white"
-                }`}
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
-              </Link>
-            ))}
+              }`;
+              const underline = (
+                <span
+                  className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-primary transition-all duration-300 ${
+                    isActive ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
+              );
+              // Cross-route section anchors use a full navigation so the browser
+              // reliably scrolls to the section on home (client-side nav + Lenis
+              // would otherwise land at the top of the page).
+              return crossRoute ? (
+                <a key={item.name} href={href} className={className}>
+                  {item.name}
+                  {underline}
+                </a>
+              ) : (
+                <Link
+                  key={item.name}
+                  href={href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={className}
+                >
+                  {item.name}
+                  {underline}
+                </Link>
+              );
+            })}
 
             <div className="w-px h-6 bg-white/10 mx-2" />
             <div className="hidden md:flex items-center gap-6 lg:gap-4">
@@ -373,7 +407,7 @@ export default function Navbar() {
                 </button>
               )}
 
-              <Button href="#contact" variant="gradient" size="sm">
+              <Button href={resolveHash("#contact")} variant="gradient" size="sm">
                 Let&apos;s Talk
               </Button>
             </div>
@@ -435,22 +469,44 @@ export default function Navbar() {
           ref={mobileMenuContentRef}
           className="flex flex-col items-center gap-8 text-center"
         >
-          {navLinks.map((item, i) => (
-            <div
-              key={item.name}
-              ref={(el) => {
-                mobileMenuLinksRef.current[i] = el;
-              }}
-            >
-              <Link
-                href={item.href}
-                className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 hover:to-primary transition-all cursor-pointer tracking-tight"
-                onClick={() => setMobileMenuOpen(false)}
+          {navLinks.map((item, i) => {
+            const isActive =
+              item.href.startsWith("/") && pathname === item.href;
+            const crossRoute = item.href.startsWith("#") && pathname !== "/";
+            const href = crossRoute ? `/${item.href}` : item.href;
+            const className = `text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r transition-all cursor-pointer tracking-tight ${
+              isActive
+                ? "from-primary to-secondary"
+                : "from-white to-gray-400 hover:to-primary"
+            }`;
+            return (
+              <div
+                key={item.name}
+                ref={(el) => {
+                  mobileMenuLinksRef.current[i] = el;
+                }}
               >
-                {item.name}
-              </Link>
-            </div>
-          ))}
+                {crossRoute ? (
+                  <a
+                    href={href}
+                    className={className}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    href={href}
+                    aria-current={isActive ? "page" : undefined}
+                    className={className}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                )}
+              </div>
+            );
+          })}
 
           <div
             ref={(el) => {
@@ -480,13 +536,14 @@ export default function Navbar() {
               <DevToIcon />
             </a>
             <a
-              href="#contact"
+              href={resolveHash("#contact")}
               onClick={(e) => {
-                e.preventDefault();
                 setMobileMenuOpen(false);
-                const element = document.getElementById("contact");
-                if (element) {
-                  element.scrollIntoView({ behavior: "smooth" });
+                if (pathname === "/") {
+                  e.preventDefault();
+                  document
+                    .getElementById("contact")
+                    ?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
               className="text-gray-400 hover:text-white cursor-pointer transition-colors transform hover:scale-110"
