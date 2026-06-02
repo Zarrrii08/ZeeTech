@@ -13,7 +13,14 @@ export const metadata: Metadata = {
     title: "terminale — the cross-platform terminal that doesn't suck",
     description:
       "Native, GPU-accelerated, cross-platform terminal in Rust. Multi-tab, split panes, inline AI, Quake mode. No Electron. No telemetry. Open source.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "terminale" }],
+    images: [{ url: "/og-terminale.jpg", width: 1920, height: 1080, alt: "terminale" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "terminale — the cross-platform terminal that doesn't suck",
+    description:
+      "Native, GPU-accelerated, cross-platform terminal in Rust. Multi-tab, split panes, inline AI, Quake mode. No Electron. No telemetry. Open source.",
+    images: ["/og-terminale.jpg"],
   },
 };
 
