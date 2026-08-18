@@ -27,7 +27,7 @@ const contactOptions = [
     title: "Send an email",
     description:
       "Share your idea via email for a fast response and early project scoping.",
-    href: "mailto:hello@zaryabhayatkhan.dev",
+    href: "mailto:zarriikhan786@gmail.com",
     icon: Mail,
   },
 ];

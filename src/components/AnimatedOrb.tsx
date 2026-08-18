@@ -290,7 +290,7 @@ export default function AnimatedOrb() {
     <div ref={containerRef} className="pointer-events-auto">
       <div
         ref={orbRef}
-        className="relative w-[400px] h-[400px]"
+        className="relative w-[700px] h-auto"
         style={{
           transformStyle: "preserve-3d",
         }}
@@ -362,7 +362,7 @@ export default function AnimatedOrb() {
           }}
         >
           <div
-            className="relative w-48 h-48 flex items-center justify-center overflow-hidden group"
+            className="relative w-100 h-100 flex items-center justify-center overflow-hidden group"
             style={{
               transform: "translateZ(0)",
               backfaceVisibility: "hidden",
@@ -370,9 +370,9 @@ export default function AnimatedOrb() {
             }}
           >
             <img
-              src="/logo.png"
-              alt="ZeeTech logo"
-              className="w-40 h-40 cursor-pointer pointer-events-auto"
+              src="/banner.png"
+              alt="Logo"
+              className="w-full h-auto cursor-pointer pointer-events-auto p-2"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => {
                 setIsHovered(false);
