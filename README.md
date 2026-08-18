@@ -1,4 +1,4 @@
-# 🚀 Zee-Tech.dev Website
+# 🚀 https://zaryab-hayat-khan.vercel.app/ Website
 
 > Modern, performant portfolio website built with Next.js, React, and GSAP. Featuring smooth animations, real-time status tracking, and a beautiful gradient-based design.
 
@@ -268,7 +268,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🔗 Links
 
-- **Live Site**: [Zee-Tech.dev](https://Zee-Tech.dev)
+- **Live Site**: https://zaryab-hayat-khan.vercel.app/
 - **Repository**: [GitHub](https://github.com/fbrzlarosa/Zee-Tech-website)
 
 ## 🙏 Acknowledgments
