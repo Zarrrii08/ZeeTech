@@ -25,13 +25,13 @@ This guide will help you configure the Status Tracker to automatically start on 
 Navigate to the project folder and run:
 
 ```powershell
-cd C:\Users\YourUser\Workspace\stackbyte-website
+cd C:\Users\YourUser\Workspace\Zee-Tech-website
 .\scripts\setup-windows-autostart.ps1
 ```
 
 The script will:
 
-- ✅ Create a scheduled task named `StackbyteStatusTracker`
+- ✅ Create a scheduled task named `Zee-TechStatusTracker`
 - ✅ Configure automatic startup when the PC boots
 - ✅ Set the task to run even if the PC is on battery
 - ✅ Require network connection
@@ -39,7 +39,7 @@ The script will:
 
 ### Step 3: Verify
 
-Open **Task Scheduler** (`taskschd.msc`) and search for `StackbyteStatusTracker` in the library. You should see the configured task.
+Open **Task Scheduler** (`taskschd.msc`) and search for `Zee-TechStatusTracker` in the library. You should see the configured task.
 
 ## 🧪 Manual Testing
 
@@ -70,7 +70,7 @@ node scripts/tracker.js
 To test the task without restarting the PC:
 
 ```powershell
-Start-ScheduledTask -TaskName "StackbyteStatusTracker"
+Start-ScheduledTask -TaskName "Zee-TechStatusTracker"
 ```
 
 ## 🔧 Task Management
@@ -78,25 +78,25 @@ Start-ScheduledTask -TaskName "StackbyteStatusTracker"
 ### View task status
 
 ```powershell
-Get-ScheduledTask -TaskName "StackbyteStatusTracker"
+Get-ScheduledTask -TaskName "Zee-TechStatusTracker"
 ```
 
 ### Temporarily disable
 
 ```powershell
-Disable-ScheduledTask -TaskName "StackbyteStatusTracker"
+Disable-ScheduledTask -TaskName "Zee-TechStatusTracker"
 ```
 
 ### Re-enable
 
 ```powershell
-Enable-ScheduledTask -TaskName "StackbyteStatusTracker"
+Enable-ScheduledTask -TaskName "Zee-TechStatusTracker"
 ```
 
 ### Remove the task
 
 ```powershell
-Unregister-ScheduledTask -TaskName "StackbyteStatusTracker" -Confirm:$false
+Unregister-ScheduledTask -TaskName "Zee-TechStatusTracker" -Confirm:$false
 ```
 
 ## 🔄 Restarting the Tracker After Modifications
@@ -109,19 +109,19 @@ This method stops the current running instance and starts a new one:
 
 ```powershell
 # Stop the current task
-Stop-ScheduledTask -TaskName "StackbyteStatusTracker"
+Stop-ScheduledTask -TaskName "Zee-TechStatusTracker"
 
 # Wait a moment for the process to terminate
 Start-Sleep -Seconds 2
 
 # Start the task again
-Start-ScheduledTask -TaskName "StackbyteStatusTracker"
+Start-ScheduledTask -TaskName "Zee-TechStatusTracker"
 ```
 
 ### Method 2: Restart via PowerShell (One-liner)
 
 ```powershell
-Stop-ScheduledTask -TaskName "StackbyteStatusTracker"; Start-Sleep -Seconds 2; Start-ScheduledTask -TaskName "StackbyteStatusTracker"
+Stop-ScheduledTask -TaskName "Zee-TechStatusTracker"; Start-Sleep -Seconds 2; Start-ScheduledTask -TaskName "Zee-TechStatusTracker"
 ```
 
 ### Method 3: Manual Process Termination
@@ -149,14 +149,14 @@ If the task scheduler method doesn't work, you can manually stop the Node.js pro
 
 3. **Restart the task:**
    ```powershell
-   Start-ScheduledTask -TaskName "StackbyteStatusTracker"
+   Start-ScheduledTask -TaskName "Zee-TechStatusTracker"
    ```
 
 ### Method 4: Using Task Scheduler GUI
 
 1. Open **Task Scheduler** (`taskschd.msc`)
 2. Navigate to **Task Scheduler Library**
-3. Find `StackbyteStatusTracker`
+3. Find `Zee-TechStatusTracker`
 4. Right-click and select **End** (to stop)
 5. Right-click again and select **Run** (to start)
 
@@ -186,10 +186,10 @@ To verify the tracker has restarted successfully:
 
 ```powershell
 # Check if the task is running
-Get-ScheduledTask -TaskName "StackbyteStatusTracker" | Select-Object State
+Get-ScheduledTask -TaskName "Zee-TechStatusTracker" | Select-Object State
 
 # View recent task execution history
-Get-ScheduledTaskInfo -TaskName "StackbyteStatusTracker"
+Get-ScheduledTaskInfo -TaskName "Zee-TechStatusTracker"
 ```
 
 The `State` should show `Running` if the tracker is active.
@@ -199,10 +199,10 @@ The `State` should show `Running` if the tracker is active.
 You can create a quick restart script by saving this to `scripts/restart-tracker.ps1`:
 
 ```powershell
-Write-Host "[*] Restarting StackbyteStatusTracker..." -ForegroundColor Cyan
-Stop-ScheduledTask -TaskName "StackbyteStatusTracker" -ErrorAction SilentlyContinue
+Write-Host "[*] Restarting Zee-TechStatusTracker..." -ForegroundColor Cyan
+Stop-ScheduledTask -TaskName "Zee-TechStatusTracker" -ErrorAction SilentlyContinue
 Start-Sleep -Seconds 2
-Start-ScheduledTask -TaskName "StackbyteStatusTracker"
+Start-ScheduledTask -TaskName "Zee-TechStatusTracker"
 Write-Host "[SUCCESS] Tracker restarted!" -ForegroundColor Green
 ```
 
@@ -238,7 +238,7 @@ Then run it with:
 
 3. Check task logs in Task Scheduler:
    - Open Task Scheduler
-   - Find `StackbyteStatusTracker`
+   - Find `Zee-TechStatusTracker`
    - Click "Run" to see any errors
 
 ### Tracker doesn't connect to API

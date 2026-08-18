@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://stackbyte.dev
+Host: https://zaryabhayatkhan.dev
 
 # Sitemaps
-Sitemap: https://stackbyte.dev/sitemap.xml
+Sitemap: https://zaryabhayatkhan.dev/sitemap.xml

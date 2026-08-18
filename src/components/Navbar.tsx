@@ -1,45 +1,44 @@
 "use client";
 
 import { gsap } from "gsap";
-import {
-  Activity,
-  Clock,
-  Github,
-  Globe,
-  Linkedin,
-  Mail,
-  MapPin,
-  MessageSquare,
-  ShieldCheck,
-  Wifi,
-  X,
-  Zap,
-} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { useBackground } from "../context/BackgroundContext";
+import { useEffect, useRef, useState, type SVGProps } from "react";
+import { useBackground } from "@/context/BackgroundContext";
 import Button from "./Button";
 import Logo from "./Logo";
 
-type StatusType = "online" | "offline" | "holidays";
-
-function DevToIcon() {
+function GithubIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="lucide lucide-book-open"
-    >
-      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M12 0.297c-6.627 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.09-.744.083-.729.083-.729 1.205.085 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.775.418-1.305.76-1.605-2.665-.305-5.466-1.333-5.466-5.93 0-1.31.47-2.38 1.236-3.22-.124-.303-.536-1.523.116-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.295-1.23 3.295-1.23.653 1.653.242 2.873.118 3.176.77.84 1.235 1.91 1.235 3.22 0 4.61-2.804 5.624-5.475 5.92.43.37.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .32.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+    </svg>
+  );
+}
+
+function LinkedinIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M4.98 3.5C4.98 5.43 3.4 7 1.47 7 0.66 7 0 6.34 0 5.53 0 4.72 0.66 4.06 1.47 4.06 3.4 4.06 4.98 5.63 4.98 7.56zM.24 8.5H2.7V24H.24V8.5zm6.74 0H9.2V11.2c.36-.63 1.6-1.57 3.3-1.57 3.53 0 4.18 2.32 4.18 5.35V24h-2.46v-7.52c0-1.8-.03-4.12-2.5-4.12-2.5 0-2.88 1.94-2.88 3.97V24H7V8.5z" />
+    </svg>
+  );
+}
+
+function MailIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+      <path d="M4 5.5h16c.83 0 1.5.67 1.5 1.5v10c0 .83-.67 1.5-1.5 1.5H4c-.83 0-1.5-.67-1.5-1.5v-10C2.5 6.17 3.17 5.5 4 5.5z" />
+      <path d="M22 7.5l-10 6-10-6" />
+    </svg>
+  );
+}
+
+function ExternalLinkIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+      <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <path d="M15 3h6v6" />
+      <path d="M10 14L21 3" />
     </svg>
   );
 }
@@ -47,26 +46,15 @@ function DevToIcon() {
 const navLinks = [
   { name: "My Story", href: "#about" },
   { name: "How I Work", href: "#process" },
-  { name: "Expertise", href: "#services" },
-  { name: "Terminale", href: "/terminale" },
-  { name: "Posts", href: "#posts" },
+  { name: "Skills", href: "#services" },
+  { name: "Projects", href: "#projects" },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [status, setStatus] = useState<StatusType>("offline");
-  const [loading, setLoading] = useState(true);
-  const [showStatusModal, setShowStatusModal] = useState(false);
-  const [isClosingModal, setIsClosingModal] = useState(false);
-  const [time, setTime] = useState("");
   const { cycleTheme } = useBackground();
   const pathname = usePathname();
-  // Section anchors (#about, #process…) live on the home page. When we're on a
-  // different route (e.g. /terminale) turn "#about" into "/#about" so the link
-  // navigates home first and then to the section.
-  const resolveHash = (href: string) =>
-    href.startsWith("#") && pathname !== "/" ? `/${href}` : href;
   const navRef = useRef<HTMLElement>(null);
   const hamburgerLine1Ref = useRef<HTMLSpanElement>(null);
   const hamburgerLine2Ref = useRef<HTMLSpanElement>(null);
@@ -74,21 +62,19 @@ export default function Navbar() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileMenuContentRef = useRef<HTMLDivElement>(null);
   const mobileMenuLinksRef = useRef<(HTMLDivElement | null)[]>([]);
-  const statusModalRef = useRef<HTMLDivElement>(null);
-  const statusModalContentRef = useRef<HTMLDivElement>(null);
+
+  const resolveHash = (href: string) =>
+    href.startsWith("#") && pathname !== "/" ? `/${href}` : href;
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 50);
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -114,11 +100,7 @@ export default function Navbar() {
     if (mobileMenuOpen) {
       gsap.to(hamburgerLine1Ref.current, { rotate: 45, y: 6, duration: 0.3 });
       gsap.to(hamburgerLine2Ref.current, { opacity: 0, duration: 0.3 });
-      gsap.to(hamburgerLine3Ref.current, {
-        rotate: -45,
-        y: -10,
-        duration: 0.3,
-      });
+      gsap.to(hamburgerLine3Ref.current, { rotate: -45, y: -10, duration: 0.3 });
     } else {
       gsap.to(hamburgerLine1Ref.current, { rotate: 0, y: 0, duration: 0.3 });
       gsap.to(hamburgerLine2Ref.current, { opacity: 1, duration: 0.3 });
@@ -173,156 +155,12 @@ export default function Navbar() {
     }
   }, [mobileMenuOpen]);
 
-  useEffect(() => {
-    if (!statusModalRef.current || !statusModalContentRef.current) return;
-
-    if (showStatusModal && !isClosingModal) {
-      gsap.set(statusModalRef.current, { opacity: 0 });
-      gsap.set(statusModalContentRef.current, {
-        opacity: 0,
-        scale: 0.95,
-        y: 20,
-      });
-
-      gsap.to(statusModalRef.current, {
-        opacity: 1,
-        duration: 0.3,
-      });
-
-      gsap.to(statusModalContentRef.current, {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        duration: 0.4,
-        ease: "power2.out",
-      });
-    }
-  }, [showStatusModal, isClosingModal]);
-
-  useEffect(() => {
-    if (
-      !statusModalRef.current ||
-      !statusModalContentRef.current ||
-      !isClosingModal
-    )
-      return;
-
-    gsap.to(statusModalContentRef.current, {
-      opacity: 0,
-      scale: 0.95,
-      y: 20,
-      duration: 0.3,
-      ease: "power2.in",
-    });
-    gsap.to(statusModalRef.current, {
-      opacity: 0,
-      duration: 0.3,
-    });
-  }, [isClosingModal]);
-
-  const handleCloseModal = () => {
-    if (isClosingModal) return;
-    setIsClosingModal(true);
-    setTimeout(() => {
-      setShowStatusModal(false);
-      setIsClosingModal(false);
-    }, 300);
-  };
-
-  useEffect(() => {
-    const updateTime = () => {
-      setTime(
-        new Date().toLocaleTimeString("en-US", {
-          timeZone: "Europe/Rome",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-        })
-      );
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const fetchStatus = async () => {
-      try {
-        const res = await fetch("/api/status");
-        const data = await res.json();
-        if (data.status) {
-          setStatus(data.status);
-        }
-      } catch (e) {
-        console.error("Failed to fetch status", e);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchStatus();
-    const interval = setInterval(fetchStatus, 10000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-  const getStatusConfig = () => {
-    switch (status) {
-      case "online":
-        return {
-          label: "Online",
-          headline: "AVAILABLE",
-          message:
-            "I'm currently active at my desk. It's a great time to reach out for a quick response.",
-          color: "bg-emerald-500",
-          textColor: "text-emerald-400",
-          borderColor: "border-emerald-500/30",
-          bgColor: "bg-emerald-500/10",
-          glow: "shadow-[0_0_30px_-10px_rgba(16,185,129,0.3)]",
-          responseTime: "Fast",
-        };
-      case "holidays":
-        return {
-          label: "On Leave",
-          headline: "ON VACATION",
-          message:
-            "I'm currently away taking some time off. I'll get back to you as soon as I return.",
-          color: "bg-amber-500",
-          textColor: "text-amber-400",
-          borderColor: "border-amber-500/30",
-          bgColor: "bg-amber-500/10",
-          glow: "shadow-[0_0_30px_-10px_rgba(245,158,11,0.3)]",
-          responseTime: "Slow",
-        };
-      case "offline":
-      default:
-        return {
-          label: "Offline",
-          headline: "AWAY",
-          message:
-            "I'm currently not at my computer. Feel free to leave a message, I'll reply when I'm back.",
-          color: "bg-zinc-500",
-          textColor: "text-zinc-400",
-          borderColor: "border-zinc-500/30",
-          bgColor: "bg-zinc-500/10",
-          glow: "shadow-[0_0_30px_-10px_rgba(113,113,122,0.2)]",
-          responseTime: "Later",
-        };
-    }
-  };
-
-  const config = getStatusConfig();
-
   return (
     <>
       <nav
-        style={{
-          transform: `translateY(-150px)`,
-        }}
         ref={navRef}
-        className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 ${
+        style={{ transform: "translateY(-150px)" }}
+        className={`fixed top-0 left-0 right-0 z-9999 transition-all duration-500 ${
           isScrolled
             ? "bg-black/30 backdrop-blur-md h-20 sm:h-16 shadow-lg"
             : "bg-black/0 backdrop-blur-sm h-20 sm:h-24"
@@ -342,20 +180,17 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Desktop Menu - Minimal & Modern */}
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
             {navLinks.map((item) => {
-              const isActive =
-                item.href.startsWith("/") && pathname === item.href;
-              const crossRoute =
-                item.href.startsWith("#") && pathname !== "/";
+              const isActive = item.href.startsWith("/") && pathname === item.href;
+              const crossRoute = item.href.startsWith("#") && pathname !== "/";
               const href = crossRoute ? `/${item.href}` : item.href;
               const className = `text-sm font-medium transition-colors relative group cursor-pointer ${
                 isActive
                   ? "text-white"
                   : isScrolled
-                    ? "text-gray-300 hover:text-white"
-                    : "text-white/90 hover:text-white"
+                  ? "text-gray-300 hover:text-white"
+                  : "text-white/90 hover:text-white"
               }`;
               const underline = (
                 <span
@@ -364,9 +199,7 @@ export default function Navbar() {
                   }`}
                 />
               );
-              // Cross-route section anchors use a full navigation so the browser
-              // reliably scrolls to the section on home (client-side nav + Lenis
-              // would otherwise land at the top of the page).
+
               return crossRoute ? (
                 <a key={item.name} href={href} className={className}>
                   {item.name}
@@ -386,55 +219,12 @@ export default function Navbar() {
             })}
 
             <div className="w-px h-6 bg-white/10 mx-2" />
-            <div className="hidden md:flex items-center gap-6 lg:gap-4">
-              {/* Status Badge */}
-              {!loading && (
-                <button
-                  onClick={() => setShowStatusModal(true)}
-                  className="hidden md:flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors cursor-pointer group text-xs"
-                >
-                  <span className="relative flex h-2 w-2">
-                    <span
-                      className={`animate-ping absolute inline-flex h-full w-full rounded-full ${config.color} opacity-75`}
-                    ></span>
-                    <span
-                      className={`relative inline-flex rounded-full h-2 w-2 ${config.color}`}
-                    ></span>
-                  </span>
-                  <span className="font-bold text-white leading-none tracking-wide">
-                    {config.headline}
-                  </span>
-                </button>
-              )}
-
-              <Button href={resolveHash("#contact")} variant="gradient" size="sm">
-                Let&apos;s Talk
-              </Button>
-            </div>
+            <Button href={resolveHash("#contact")} variant="gradient" size="sm">
+              Let&apos;s Talk
+            </Button>
           </div>
 
-          {/* Mobile Status Badge and Menu Toggle */}
           <div className="md:hidden flex items-center gap-3">
-            {/* Status Badge - Mobile */}
-            {!loading && (
-              <button
-                onClick={() => setShowStatusModal(true)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors cursor-pointer group text-xs"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span
-                    className={`animate-ping absolute inline-flex h-full w-full rounded-full ${config.color} opacity-75`}
-                  ></span>
-                  <span
-                    className={`relative inline-flex rounded-full h-2 w-2 ${config.color}`}
-                  ></span>
-                </span>
-                <span className="font-bold text-white leading-none tracking-wide">
-                  {config.headline}
-                </span>
-              </button>
-            )}
-
             <button
               className="text-white relative z-50 p-2 cursor-pointer focus:outline-none"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -459,7 +249,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Fullscreen Menu Overlay */}
       <div
         ref={mobileMenuRef}
         className="fixed inset-0 z-40 bg-[#0D1117]/95 backdrop-blur-xl flex items-center justify-center"
@@ -470,11 +259,10 @@ export default function Navbar() {
           className="flex flex-col items-center gap-8 text-center"
         >
           {navLinks.map((item, i) => {
-            const isActive =
-              item.href.startsWith("/") && pathname === item.href;
+            const isActive = item.href.startsWith("/") && pathname === item.href;
             const crossRoute = item.href.startsWith("#") && pathname !== "/";
             const href = crossRoute ? `/${item.href}` : item.href;
-            const className = `text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r transition-all cursor-pointer tracking-tight ${
+            const className = `text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-linear-to-r transition-all cursor-pointer tracking-tight ${
               isActive
                 ? "from-primary to-secondary"
                 : "from-white to-gray-400 hover:to-primary"
@@ -508,195 +296,41 @@ export default function Navbar() {
             );
           })}
 
-          <div
-            ref={(el) => {
-              mobileMenuLinksRef.current[navLinks.length] = el;
-            }}
-            className="flex gap-8 mt-8"
-          >
+          <div className="flex gap-8 mt-8">
             <a
-              href={process.env.NEXT_PUBLIC_SOCIAL_GITHUB || "#"}
+              href="https://github.com/Zarrrii08"
               target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-400 hover:text-white cursor-pointer transition-colors transform hover:scale-110"
             >
-              <Github className="w-6 h-6" />
+              <GithubIcon className="w-6 h-6" />
             </a>
             <a
-              href={process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN || "#"}
+              href="https://www.linkedin.com/in/zaryab-hayat-khan-0598b5220/"
               target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-400 hover:text-white cursor-pointer transition-colors transform hover:scale-110"
             >
-              <Linkedin className="w-6 h-6" />
+              <LinkedinIcon className="w-6 h-6" />
             </a>
             <a
-              href={process.env.NEXT_PUBLIC_SOCIAL_DEVTO || "#"}
+              href="https://stackoverflow.com/users/18258721/zaryab-hayat-khan"
               target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-400 hover:text-white cursor-pointer transition-colors transform hover:scale-110"
             >
-              <DevToIcon />
+              <ExternalLinkIcon className="w-6 h-6" />
             </a>
             <a
               href={resolveHash("#contact")}
-              onClick={(e) => {
-                setMobileMenuOpen(false);
-                if (pathname === "/") {
-                  e.preventDefault();
-                  document
-                    .getElementById("contact")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
+              onClick={() => setMobileMenuOpen(false)}
               className="text-gray-400 hover:text-white cursor-pointer transition-colors transform hover:scale-110"
             >
-              <Mail className="w-6 h-6" />
+              <MailIcon className="w-6 h-6" />
             </a>
           </div>
         </div>
       </div>
-
-      {/* Status Modal */}
-      {(showStatusModal || isClosingModal) && (
-        <div
-          ref={statusModalRef}
-          onClick={handleCloseModal}
-          className="fixed inset-0 bg-black/60 backdrop-blur-md z-[99999] flex items-center justify-center p-4"
-        >
-          <div
-            ref={statusModalContentRef}
-            onClick={(e) => e.stopPropagation()}
-            className={`bg-[#0D1117] border ${config.borderColor} rounded-2xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl overflow-hidden`}
-          >
-            {/* Background Decoration */}
-            <div
-              className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-${config.color.replace(
-                "bg-",
-                ""
-              )} to-transparent opacity-50`}
-            />
-            <div
-              className={`absolute -top-20 -right-20 w-64 h-64 ${config.color} opacity-[0.03] blur-[80px] rounded-full pointer-events-none`}
-            />
-
-            <div className="absolute top-0 right-0 p-5 z-50">
-              <button
-                onClick={handleCloseModal}
-                className="text-gray-500 hover:text-white transition-colors cursor-pointer p-1 hover:bg-white/5 rounded-lg"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Header */}
-            <div className="flex flex-col gap-4 mb-8 relative z-10">
-              <div className="inline-flex items-center gap-3">
-                <div
-                  className={`relative flex items-center justify-center w-12 h-12 rounded-xl ${config.bgColor} border border-white/5`}
-                >
-                  <Activity className={`w-6 h-6 ${config.textColor}`} />
-                  {status === "online" && (
-                    <span
-                      className={`absolute top-0 right-0 -mt-1 -mr-1 w-3 h-3 ${config.color} rounded-full border-2 border-[#0D1117]`}
-                    />
-                  )}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-xl font-black text-white tracking-tight">
-                      {config.headline}
-                    </h3>
-                    <span
-                      className={`text-[10px] px-1.5 py-0.5 rounded border ${config.borderColor} ${config.textColor} bg-opacity-10 font-mono uppercase tracking-wider`}
-                    >
-                      Live
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-400 font-medium">
-                    Status Monitor
-                  </p>
-                </div>
-              </div>
-              <p className="text-gray-300 leading-relaxed text-sm border-l-2 border-white/10 pl-4">
-                {config.message}
-              </p>
-            </div>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-3 mb-6 relative z-10">
-              <div className="p-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                <div className="flex items-center gap-2 text-gray-400 mb-1">
-                  <MapPin className="w-3.5 h-3.5" />
-                  <span className="text-xs uppercase tracking-wider font-semibold">
-                    Location
-                  </span>
-                </div>
-                <div className="text-sm text-white font-medium">Lucca, IT</div>
-              </div>
-              <div className="p-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                <div className="flex items-center gap-2 text-gray-400 mb-1">
-                  <Clock className="w-3.5 h-3.5" />
-                  <span className="text-xs uppercase tracking-wider font-semibold">
-                    Local Time
-                  </span>
-                </div>
-                <div
-                  className="text-sm text-white font-medium"
-                  suppressHydrationWarning
-                >
-                  {time || "--:--"}
-                </div>
-              </div>
-              <div className="p-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                <div className="flex items-center gap-2 text-gray-400 mb-1">
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span className="text-xs uppercase tracking-wider font-semibold">
-                    Response
-                  </span>
-                </div>
-                <div className={`text-sm font-medium ${config.textColor}`}>
-                  {config.responseTime}
-                </div>
-              </div>
-              <div className="p-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                <div className="flex items-center gap-2 text-gray-400 mb-1">
-                  <Wifi className="w-3.5 h-3.5" />
-                  <span className="text-xs uppercase tracking-wider font-semibold">
-                    Connection
-                  </span>
-                </div>
-                <div className="text-sm text-white font-medium">Stable</div>
-              </div>
-            </div>
-
-            {/* System Architecture Info */}
-            <div className="mb-6 relative z-10 bg-white/5 rounded-xl p-4 border border-white/5">
-              <div className="flex items-center gap-2 mb-2">
-                <Zap className="w-3.5 h-3.5 text-yellow-500" />
-                <span className="text-xs uppercase tracking-wider font-semibold text-gray-300">
-                  How it works
-                </span>
-              </div>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                This status indicator is synced in real-time with my
-                computer&apos;s activity. It lets you know if I&apos;m currently
-                at my desk and available to chat, or if I&apos;m away and might
-                take a bit longer to respond.
-              </p>
-            </div>
-
-            {/* Footer */}
-            <div className="border-t border-white/5 pt-4 flex items-center justify-between text-xs text-gray-500 relative z-10">
-              <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-primary/60" />
-                <span>Verified Presence</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Globe className="w-3.5 h-3.5" />
-                <span>Live Sync</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

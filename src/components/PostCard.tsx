@@ -2,7 +2,7 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Calendar, ExternalLink, TrendingUp } from "lucide-react";
+import { Calendar, ExternalLink, TrendingUp } from "@/components/Icons";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 

@@ -55,7 +55,7 @@ SMTP_USER=your-email@example.com
 SMTP_PASS=your-smtp-key-here
 
 # Optional: Custom sender name
-SMTP_FROM=Stackbyte Contact <your-email@example.com>
+SMTP_FROM=Zee-Tech Contact <your-email@example.com>
 
 # Email address to receive contact form submissions
 CONTACT_EMAIL=your-contact@example.com

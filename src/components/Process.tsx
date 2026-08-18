@@ -2,7 +2,7 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Code2, MessageSquare, PenTool, Rocket } from "lucide-react";
+import { Code2, MessageSquare, PenTool, Rocket } from "@/components/Icons";
 import dynamic from "next/dynamic";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import FullScreenSection from "./FullScreenSection";

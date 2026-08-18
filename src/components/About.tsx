@@ -2,7 +2,7 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Briefcase, GraduationCap, Trophy } from "lucide-react";
+import { Briefcase, GraduationCap, Trophy } from "@/components/Icons";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import TechStack3D from "./TechStack3D";
 
@@ -10,39 +10,43 @@ gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
-    year: "Present",
-    title: "Fullstack Software Developer",
-    company: "Freelance",
+    year: "2024 – Present",
+    title: "Mid Senior Frontend Web Developer",
+    company: "Translation Empire PK",
     description:
-      "Orchestrating digital symphonies for agencies and startups worldwide.",
+      "Designed modern React and Next.js frontends, integrated .NET and Node.js backends, and launched responsive WordPress websites with custom themes.",
     icon: Briefcase,
   },
   {
-    year: "Previous",
-    title: "Software Engineer",
-    company: "Domotz",
-    description: "Building scalable network monitoring solutions.",
+    year: "2022 – 2024",
+    title: "Full Stack Web Developer",
+    company: "Dynamasstech",
+    description:
+      "Built and customized Shopify stores, developed Node.js backends, and implemented e-commerce solutions for high-converting online shops.",
     icon: Briefcase,
   },
   {
-    year: "Previous",
-    title: "Android & Web Developer",
-    company: "Meedori Agency",
-    description: "Crafting mobile and web experiences.",
+    year: "2022 – 2023",
+    title: "Frontend Web Developer",
+    company: "ENCORACODE, Islamabad",
+    description:
+      "Converted Figma designs into responsive web interfaces and supported Node.js backend integrations for scalable client projects.",
     icon: Briefcase,
   },
   {
-    year: "Early Days",
-    title: "Growing Startups",
-    company: "TIM WCAP",
-    description: "Accelerating innovation in the tech ecosystem.",
-    icon: Trophy,
+    year: "2018 – 2022",
+    title: "Bachelor of Software Engineering",
+    company: "Kohat University of Science & Technology",
+    description:
+      "Completed a full software engineering degree with a strong foundation in web development and system design.",
+    icon: GraduationCap,
   },
   {
-    year: "Education",
-    title: "University Studies",
-    company: "Catania, Sicily",
-    description: "Laying the foundation for a career in technology.",
+    year: "2016 – 2018",
+    title: "Intermediate in Computer Science (ICS)",
+    company: "F.F.H.S.S College, Kohat",
+    description:
+      "Studied core computer science concepts and prepared for a career in software engineering.",
     icon: GraduationCap,
   },
 ];
@@ -564,22 +568,19 @@ export default function About() {
                 className="space-y-6 text-lg text-gray-400 leading-relaxed"
               >
                 <p>
-                  Embarking on the rollercoaster ride of my freelance software
-                  development odyssey about 15 years ago, I&apos;ve been the
-                  virtuoso of remote work for esteemed agencies, the go-to
-                  consultant for ambitious startups, and the maestro of
-                  collaboration.
+                  I am a Software Engineer and Web Developer specializing in
+                  React, Next.js, Node.js, WordPress, and Shopify. I deliver
+                  polished digital products that are fast, responsive, and easy
+                  to manage.
                 </p>
                 <p>
-                  Beneath my seemingly calm exterior lies a quiet confidence,
-                  stirred with a natural curiosity that propels me into
-                  perpetual learning endeavors.
+                  My experience spans enterprise-level websites, e-commerce
+                  platforms, custom backend integrations, and AI-powered web
+                  solutions.
                 </p>
                 <p>
-                  Think of me as a silent wizard, weaving code spells and
-                  conjuring up solutions, all while perfecting my craft in the
-                  ever-ticking clock of time. And yes, I may just be the humble
-                  architect of your next digital masterpiece!
+                  I love building practical, user-focused applications that
+                  help brands connect with their customers and scale confidently.
                 </p>
               </div>
             </div>

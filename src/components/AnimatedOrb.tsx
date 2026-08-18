@@ -79,8 +79,8 @@ export default function AnimatedOrb() {
 
       // quickTo creates a reusable setter with built-in spring — far cheaper
       // than spawning a new gsap.to tween on every mousemove event.
-      const orbRotX = gsap.quickTo(orbRef.current!, "rotateX", { duration: 0.5, ease: "power2.out" });
-      const orbRotY = gsap.quickTo(orbRef.current!, "rotateY", { duration: 0.5, ease: "power2.out" });
+      const orbRotX = gsap.quickTo(orbRef.current!, "rotationX", { duration: 0.5, ease: "power2.out" });
+      const orbRotY = gsap.quickTo(orbRef.current!, "rotationY", { duration: 0.5, ease: "power2.out" });
       const logoX = gsap.quickTo(logoContainerRef.current!, "x", { duration: 0.5, ease: "power2.out" });
       const logoY = gsap.quickTo(logoContainerRef.current!, "y", { duration: 0.5, ease: "power2.out" });
 
@@ -369,8 +369,9 @@ export default function AnimatedOrb() {
               WebkitFontSmoothing: "antialiased",
             }}
           >
-            <svg
-              viewBox="-4 0 400 300"
+            <img
+              src="/logo.png"
+              alt="ZeeTech logo"
               className="w-40 h-40 cursor-pointer pointer-events-auto"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => {
@@ -381,8 +382,6 @@ export default function AnimatedOrb() {
               onMouseUp={handlePressEnd}
               onClick={cycleTheme}
               style={{
-                shapeRendering: "geometricPrecision",
-                imageRendering: "auto",
                 transform: "translateZ(0)",
                 backfaceVisibility: "hidden",
                 WebkitFontSmoothing: "antialiased",
@@ -390,45 +389,9 @@ export default function AnimatedOrb() {
                   ? `drop-shadow(0 0 2px ${currentTheme.primary}80) drop-shadow(0 0 5px ${currentTheme.primary}99)`
                   : `drop-shadow(0 0 20px ${currentTheme.primary}33)`,
                 transition: "filter 0.3s ease",
+                userSelect: "none",
               }}
-              preserveAspectRatio="xMidYMid meet"
-            >
-              <path
-                d="M374.7,140.2c12.1,6.7,12.1,17.4,0,24.2L214,252.2c-12.1,6.6-32.1,6.6-44.2,0L9.1,164.4c-12.1-6.9-12.1-17.5,0-24.2l30.8-16.8c-3.8,5-2.1,11,5.3,15.1l129.1,70.4c9.7,5.3,25.7,5.3,35.4,0l129.1-70.4c7.4-4.1,9.1-10.1,5.3-15.1L374.7,140.2z"
-                fill="none"
-                stroke={currentTheme.primary}
-                strokeWidth="8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                opacity={0.2}
-                style={{ shapeRendering: "geometricPrecision" }}
-              />
-              <path
-                d="M374.7,140.2c12.1,6.7,12.1,17.4,0,24.2L214,252.2c-12.1,6.6-32.1,6.6-44.2,0L9.1,164.4c-12.1-6.9-12.1-17.5,0-24.2l30.8-16.8c-3.8,5-2.1,11,5.3,15.1l129.1,70.4c9.7,5.3,25.7,5.3,35.4,0l129.1-70.4c7.4-4.1,9.1-10.1,5.3-15.1L374.7,140.2z"
-                fill={currentTheme.primary}
-                opacity="1"
-                style={{ shapeRendering: "geometricPrecision" }}
-              />
-
-              <g ref={logoTopGroupRef}>
-                <path
-                  d="M209.6,3.9l129.1,70.4c9.7,5.4,9.7,14,0,19.4l-129.1,70.5c-9.7,5.3-25.7,5.3-35.4,0L45.2,93.8c-9.7-5.4-9.7-14,0-19.4L174.2,3.9C183.9-1.3,199.9-1.3,209.6,3.9L209.6,3.9z"
-                  fill="none"
-                  stroke={currentTheme.primary}
-                  strokeWidth="8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  opacity={0.2}
-                  style={{ shapeRendering: "geometricPrecision" }}
-                />
-                <path
-                  d="M209.6,3.9l129.1,70.4c9.7,5.4,9.7,14,0,19.4l-129.1,70.5c-9.7,5.3-25.7,5.3-35.4,0L45.2,93.8c-9.7-5.4-9.7-14,0-19.4L174.2,3.9C183.9-1.3,199.9-1.3,209.6,3.9L209.6,3.9z"
-                  fill={currentTheme.primary}
-                  opacity="1"
-                  style={{ shapeRendering: "geometricPrecision" }}
-                />
-              </g>
-            </svg>
+            />
           </div>
         </div>
 

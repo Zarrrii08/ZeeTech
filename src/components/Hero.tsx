@@ -2,9 +2,9 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "@/components/Icons";
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Button from "./Button";
 
 const AnimatedOrb = dynamic(() => import("./AnimatedOrb"), {
@@ -30,6 +30,13 @@ export default function Hero() {
 
   const [isMobile, setIsMobile] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  const handleScrollTo = useCallback((id: string) => {
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -414,9 +421,9 @@ export default function Hero() {
             }}
             className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mb-8 md:mb-10 leading-relaxed max-md:opacity-100! max-md:translate-y-0! max-md:transform-none!"
           >
-            I&apos;m Fabrizio La Rosa — full-stack engineer, code artisan,
-            digital problem solver. Turning complex problems into elegant,
-            user-centric digital experiences.
+            Zaryab Hayat Khan — a Software Engineer and Web Developer who
+            builds polished, responsive websites and e-commerce experiences
+            using React, Next.js, WordPress, and Shopify.
           </p>
 
           <div
@@ -424,14 +431,18 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-12 max-md:opacity-100! max-md:translate-y-0!"
           >
             <Button
-              href="#contact"
+              onClick={() => handleScrollTo("contact")}
               variant="gradient"
               size="lg"
               rightIcon={<ArrowRight className="w-5 h-5" />}
             >
               Start a Project
             </Button>
-            <Button href="#process" variant="secondary" size="lg">
+            <Button
+              onClick={() => handleScrollTo("process")}
+              variant="secondary"
+              size="lg"
+            >
               How I Work
             </Button>
           </div>

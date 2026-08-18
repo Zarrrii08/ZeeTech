@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, Mail } from "lucide-react";
+import { ExternalLink, Github, Linkedin, Mail } from "@/components/Icons";
 import StunningLoader from "@/components/StunningLoader";
 import Button from "@/components/Button";
 
@@ -37,7 +37,7 @@ export default function NotFound() {
       </Button>
       <div className="flex gap-6 mt-4">
         <a
-          href={process.env.NEXT_PUBLIC_SOCIAL_GITHUB || "#"}
+          href="https://github.com/Zarrrii08"
           target="_blank"
           rel="noopener noreferrer"
           className="text-red-500 hover:text-red-400 cursor-pointer transition-colors transform hover:scale-110"
@@ -45,7 +45,7 @@ export default function NotFound() {
           <Github className="w-6 h-6" />
         </a>
         <a
-          href={process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN || "#"}
+          href="https://www.linkedin.com/in/zaryab-hayat-khan-0598b5220/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-red-500 hover:text-red-400 cursor-pointer transition-colors transform hover:scale-110"
@@ -53,12 +53,12 @@ export default function NotFound() {
           <Linkedin className="w-6 h-6" />
         </a>
         <a
-          href={process.env.NEXT_PUBLIC_SOCIAL_DEVTO || "#"}
+          href="https://stackoverflow.com/users/18258721/zaryab-hayat-khan"
           target="_blank"
           rel="noopener noreferrer"
           className="text-red-500 hover:text-red-400 cursor-pointer transition-colors transform hover:scale-110"
         >
-          <DevToIcon />
+          <ExternalLink className="w-6 h-6" />
         </a>
         <a
           href="#contact"

@@ -2,15 +2,15 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { LucideIcon } from "@/components/Icons";
 import {
   ArrowRight,
   Bot,
   CloudCog,
   Coins,
   Globe,
-  LucideIcon,
   Server,
-} from "lucide-react";
+} from "@/components/Icons";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -20,14 +20,14 @@ const skills = [
   {
     id: "frontend",
     title: "FRONTEND",
-    subtitle: "Digital Experience",
+    subtitle: "Web Interfaces",
     description:
-      "Crafting immersive digital journeys that captivate and convert. From high-performance landing pages to complex web applications, I build pixel-perfect interfaces that users love.",
+      "Building responsive, accessible web user interfaces with modern frontend tools and design-first thinking.",
     details: [
-      "React / React Native",
-      "Next.js / Remix",
-      "Angular / Vue",
-      "WordPress / Elementor",
+      "HTML / CSS / JavaScript",
+      "Tailwind CSS / Bootstrap",
+      "React.js / Next.js",
+      "jQuery / Responsive Layouts",
     ],
     icon: Globe,
     color: "#06b6d4",
@@ -36,30 +36,30 @@ const skills = [
   {
     id: "backend",
     title: "BACKEND",
-    subtitle: "System Architecture",
+    subtitle: "API & Systems",
     description:
-      "Designing robust, scalable server-side solutions that power your business logic. Secure APIs, efficient databases, and microservices architecture built for high availability.",
+      "Delivering reliable backend services, API integrations, and server-side logic for scalable applications.",
     details: [
-      "Node.js / TypeScript",
-      "Python / Go",
-      "PHP / Laravel",
-      "System Design",
+      "Node.js / Express",
+      "API Integrations",
+      "MySQL / Database Design",
+      "Server Configuration",
     ],
     icon: Server,
     color: "#8B5CF6",
     gradient: "from-violet-500 to-purple-600",
   },
   {
-    id: "web3",
-    title: "WEB3",
-    subtitle: "Decentralized Future",
+    id: "ecommerce",
+    title: "ECOMMERCE",
+    subtitle: "Shopify & WordPress",
     description:
-      "Pioneering the next generation of the internet. Smart contract development, DApp integration, and blockchain solutions that bring transparency and trust to your applications.",
+      "Creating custom Shopify and WordPress stores with themes, plugins, and optimized checkout flows.",
     details: [
-      "Blockchain / Crypto",
-      "Smart Contracts",
-      "DeFi Protocols",
-      "DApps Architecture",
+      "Shopify / Liquid",
+      "WordPress / WooCommerce",
+      "Custom Themes / Plugins",
+      "Performance Optimization",
     ],
     icon: Coins,
     color: "#F59E0B",
@@ -68,30 +68,30 @@ const skills = [
   {
     id: "ai",
     title: "AI",
-    subtitle: "Intelligent Solutions",
+    subtitle: "Voice Assistants",
     description:
-      "Integrating cutting-edge artificial intelligence to automate processes and create smarter applications. Leveraging LLMs and predictive models to unlock new possibilities.",
+      "Developing AI-supported voice interfaces and smart assistants for web applications and accessibility features.",
     details: [
-      "LLM Integration",
-      "OpenAI / Anthropic",
-      "AI Agents",
-      "Predictive Models",
+      "Speech Recognition APIs",
+      "Custom Voice Commands",
+      "React Integration",
+      "Interactive Responses",
     ],
     icon: Bot,
     color: "#EC4899",
     gradient: "from-pink-500 to-rose-600",
   },
   {
-    id: "devops",
-    title: "DEVOPS",
-    subtitle: "Cloud Infrastructure",
+    id: "portals",
+    title: "PORTALS",
+    subtitle: "Business Systems",
     description:
-      "Automating the bridge between code and deployment. CI/CD pipelines, container orchestration, and cloud infrastructure management ensuring your software runs smoothly everywhere.",
+      "Designing secure, user-friendly portals for employees, clients, vendors, and internal operations.",
     details: [
-      "Docker / Kubernetes",
-      "CI / CD Pipelines",
-      "Agile Methodology",
-      "Robot Framework",
+      "Client & Employee Portals",
+      "Internal Dashboards",
+      "Vendor Management Systems",
+      "Operational Workflows",
     ],
     icon: CloudCog,
     color: "#10B981",
@@ -415,7 +415,7 @@ function SkillCard({ skill, index, isMobile }: SkillCardProps) {
       >
         <div
           ref={badgeRef}
-          className={`inline-flex self-start items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gradient-to-r ${skill.gradient} bg-opacity-10 text-white text-xs sm:text-sm font-bold tracking-wider mb-4 sm:mb-6`}
+          className={`inline-flex self-start items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-linear-to-r ${skill.gradient} bg-opacity-10 text-white text-xs sm:text-sm font-bold tracking-wider mb-4 sm:mb-6`}
           style={{ transformStyle: "preserve-3d" }}
         >
           <skill.icon className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -449,7 +449,7 @@ function SkillCard({ skill, index, isMobile }: SkillCardProps) {
               className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base text-gray-300"
             >
               <div
-                className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${skill.gradient} shrink-0`}
+                className={`w-1.5 h-1.5 rounded-full bg-linear-to-r ${skill.gradient} shrink-0`}
               />
               <span>{detail}</span>
             </div>
@@ -470,7 +470,7 @@ function SkillCard({ skill, index, isMobile }: SkillCardProps) {
 
       <div className="flex-1 relative hidden lg:block overflow-visible">
         <div
-          className={`absolute inset-0 bg-gradient-to-br ${skill.gradient} opacity-20 rounded-2xl sm:rounded-3xl overflow-hidden`}
+          className={`absolute inset-0 bg-linear-to-br ${skill.gradient} opacity-20 rounded-2xl sm:rounded-3xl overflow-hidden`}
         />
 
         <div className="absolute inset-0 flex items-center justify-center">
@@ -492,7 +492,7 @@ function SkillCard({ skill, index, isMobile }: SkillCardProps) {
           </div>
         </div>
 
-        <div className="absolute inset-0 bg-gradient-to-l from-transparent to-[#0D1117]" />
+        <div className="absolute inset-0 bg-linear-to-l from-transparent to-[#0D1117]" />
       </div>
     </div>
   );

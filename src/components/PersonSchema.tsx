@@ -1,12 +1,9 @@
 export default function PersonSchema() {
-  const githubUrl = process.env.NEXT_PUBLIC_SOCIAL_GITHUB;
-  const linkedinUrl = process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN;
-  const devToUrl = process.env.NEXT_PUBLIC_SOCIAL_DEVTO;
-
-  const sameAs: string[] = [];
-  if (githubUrl) sameAs.push(githubUrl);
-  if (linkedinUrl) sameAs.push(linkedinUrl);
-  if (devToUrl) sameAs.push(devToUrl);
+  const sameAs = [
+    "https://github.com/Zarrrii08",
+    "https://www.linkedin.com/in/zaryab-hayat-khan-0598b5220/",
+    "https://stackoverflow.com/users/18258721/zaryab-hayat-khan",
+  ];
 
   const schema: {
     "@context": string;
@@ -18,9 +15,9 @@ export default function PersonSchema() {
   } = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Fabrizio La Rosa",
-    jobTitle: "Software Developer",
-    url: "https://stackbyte.dev",
+    name: "Zaryab Hayat Khan",
+    jobTitle: "Software Engineer",
+    url: "https://zaryabhayatkhan.dev",
   };
 
   if (sameAs.length > 0) {

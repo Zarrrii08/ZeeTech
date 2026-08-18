@@ -1,17 +1,8 @@
-# 🚀 Stackbyte.dev Website
+# 🚀 Zee-Tech.dev Website
 
 > Modern, performant portfolio website built with Next.js, React, and GSAP. Featuring smooth animations, real-time status tracking, and a beautiful gradient-based design.
 
-<div align="center">
 
-### 🎨 **100% Vibe Coded** 🎨
-
-**This entire project was crafted using AI-assisted development (vibe coding)**
-
-[![Vibe Coded](https://img.shields.io/badge/100%25-Vibe%20Coded-06B6D4?style=for-the-badge&logo=openai&logoColor=white&labelColor=0D1117)](https://github.com/fbrzlarosa/stackbyte-website)
-[![Prompt Engineered](https://img.shields.io/badge/Prompt-Engineered-A855F7?style=for-the-badge&logo=sparkles&logoColor=white&labelColor=0D1117)](https://github.com/fbrzlarosa/stackbyte-website)
-
-</div>
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.0.4-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=flat-square&logo=react)](https://react.dev/)
@@ -42,7 +33,7 @@
 
 - **[GSAP](https://greensock.com/gsap/)** - Professional animation library with ScrollTrigger
 - **[Lenis](https://lenis.studiofreight.com/)** - Smooth scroll library
-- **[Lucide React](https://lucide.dev/)** - Beautiful icon toolkit
+- **Custom SVG icons** - Local icon set for better bundle control
 
 ### Forms & Validation
 
@@ -68,8 +59,8 @@
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/fbrzlarosa/stackbyte-website.git
-   cd stackbyte-website
+   git clone https://github.com/fbrzlarosa/Zee-Tech-website.git
+   cd Zee-Tech-website
    ```
 
 2. **Install dependencies**
@@ -190,7 +181,7 @@ pm2 startup
 ## 🏗️ Project Structure
 
 ```
-stackbyte-website/
+Zee-Tech-website/
 ├── public/                 # Static assets
 │   ├── favicon.ico
 │   ├── og-image.jpg
@@ -277,26 +268,33 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🔗 Links
 
-- **Live Site**: [stackbyte.dev](https://stackbyte.dev)
-- **Repository**: [GitHub](https://github.com/fbrzlarosa/stackbyte-website)
+- **Live Site**: [Zee-Tech.dev](https://Zee-Tech.dev)
+- **Repository**: [GitHub](https://github.com/fbrzlarosa/Zee-Tech-website)
 
 ## 🙏 Acknowledgments
 
 - Built with amazing open source technologies
-- Icons by [Lucide](https://lucide.dev/)
+- Icons implemented as local SVG components
 - Animations powered by [GSAP](https://greensock.com/gsap/)
 
-## 🎯 Development Approach
+## 👨‍💻 About the Developer
 
-<div align="center">
+This portfolio showcases the work of a **Shopify specialist and full-stack web developer** with 4+ years of professional experience. Started freelancing during university and graduated with a Software Engineering degree in 2022. Currently a Mid-Senior Frontend Web Developer at Translation Empire PK (Islamabad).
 
-### ✨ **Vibe Coding** ✨
+### Professional Background
 
-This project was **entirely developed using AI-assisted coding** (vibe coding). Every component, animation, and feature was crafted through iterative AI collaboration, demonstrating the power of modern AI development tools.
+**Specializations:**
+- **Shopify Theme Development** — Deep expertise in Liquid, custom sections, metafields, and schema customization
+- **React & Next.js** — Performance optimization and modern frontend architecture
+- **Full-Stack Web Development** — From concept to deployment
 
-**From concept to deployment, 100% vibe coded!** 🚀
+**Track Record:**
+- 100% Job Success Score on Upwork with Rising Talent badge
+- 30+ completed freelance projects
+- Named client work: Snacktopia, Martin's Chocolates, Noire Lash, XARA Shilajit
+- Sustained high-rated freelance career alongside full-time employment
 
-</div>
+Looking to solve your e-commerce or web development challenges? Reach out and let's build something great together.
 
 ---
 

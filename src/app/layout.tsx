@@ -7,6 +7,7 @@ import { BackgroundProvider } from "@/context/BackgroundContext";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -36,57 +37,57 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://stackbyte.dev"),
+  metadataBase: new URL("https://zaryabhayatkhan.dev"),
   title: {
-    default: "Fabrizio La Rosa | Full Stack Developer & Software Architect",
-    template: "%s | Stackbyte",
+    default: "Zaryab Hayat Khan | Software Engineer",
+    template: "%s | Zaryab Hayat Khan",
   },
   description:
-    "Fabrizio La Rosa is a Full Stack Engineer and Software Architect with 15+ years of experience in crafting efficient, scalable digital solutions.",
+    "Software engineer specializing in modern web applications, e-commerce platforms, and full stack development.",
   alternates: {
-    canonical: "https://stackbyte.dev",
+    canonical: "https://zaryabhayatkhan.dev",
   },
   keywords: [
     "Full Stack Developer",
     "Software Engineer",
-    "Web Development",
+    "Web Developer",
     "React",
     "Next.js",
     "Node.js",
-    "DevOps",
-    "Web3",
-    "Blockchain",
-    "Freelance Developer Italy",
+    "Shopify",
+    "WordPress",
+    "E-commerce",
   ],
-  authors: [{ name: "Fabrizio La Rosa", url: "https://stackbyte.dev" }],
-  creator: "Fabrizio La Rosa",
+  authors: [{ name: "Zaryab Hayat Khan", url: "https://zaryabhayatkhan.dev" }],
+  creator: "Zaryab Hayat Khan",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://stackbyte.dev",
-    title: "Fabrizio La Rosa | Full Stack Developer",
+    url: "https://zaryabhayatkhan.dev",
+    title: "Zaryab Hayat Khan | Software Engineer",
     description:
-      "Turning complex problems into elegant, user-centric digital experiences. Expert in Websites, Backend, DevOps, and Web3.",
-    siteName: "Stackbyte",
+      "Showcasing modern web applications, e-commerce development, and software engineering projects.",
+    siteName: "Zaryab Hayat Khan",
     images: [
       {
-        url: "/og-image.jpg", // We need to generate or add this
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Fabrizio La Rosa - Full Stack Developer",
+        alt: "Zaryab Hayat Khan - Software Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fabrizio La Rosa | Full Stack Developer",
-    description: "Crafting efficient, scalable solutions in software & web.",
-    creator: "@stackbyte", // Update with real handle if available
+    title: "Zaryab Hayat Khan | Software Engineer",
+    description:
+      "Showcasing modern web experiences, e-commerce development, and software engineering work.",
+    creator: "Zaryab Hayat Khan",
     images: ["/og-image.jpg"],
   },
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/logo.png", type: "image/png" }],
+    apple: [{ url: "/logo.png", type: "image/png" }],
   },
   manifest: "/site.webmanifest",
   robots: {
@@ -120,11 +121,9 @@ export default function RootLayout({
         <BackgroundProvider>
           <IubendaScript />
           <GoogleAnalytics />
-          <SmoothScroll>
-            {children}
-            <SpeedInsights />
-            <Analytics />
-          </SmoothScroll>
+          <SmoothScroll>{children}</SmoothScroll>
+          <Analytics />
+          <SpeedInsights />
         </BackgroundProvider>
       </body>
     </html>

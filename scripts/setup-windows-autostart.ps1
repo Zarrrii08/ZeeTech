@@ -26,7 +26,7 @@ Write-Host "[*] Node.js path: $nodePath" -ForegroundColor Yellow
 Write-Host "[*] Tracker script: $trackerScript" -ForegroundColor Yellow
 
 # Task name
-$taskName = "StackbyteStatusTracker"
+$taskName = "Zee-TechStatusTracker"
 
 # Remove existing task if present
 $existingTask = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
@@ -58,7 +58,7 @@ $principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" 
 
 # Register the task
 try {
-    Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Principal $principal -Description "Automatically starts Stackbyte Status Tracker on system startup" | Out-Null
+    Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Principal $principal -Description "Automatically starts Zee-Tech Status Tracker on system startup" | Out-Null
     Write-Host "[SUCCESS] Task scheduled successfully!" -ForegroundColor Green
     Write-Host ""
     Write-Host "[INFO] Task details:" -ForegroundColor Cyan

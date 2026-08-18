@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { gsap } from "gsap";
-import { Loader2 } from "lucide-react";
+import { Loader2 } from "@/components/Icons";
 import Link from "next/link";
 import React, { useRef } from "react";
 
@@ -91,7 +91,7 @@ const Button = React.forwardRef<
     const content = (
       <>
         {(variant === "primary" || variant === "gradient") && (
-          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out z-10" />
+          <div className="absolute inset-0 bg-linear-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out z-10" />
         )}
 
         {isLoading && (

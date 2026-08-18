@@ -112,7 +112,7 @@ export default function TechStack3D() {
               <span className="text-slate-600 select-none">1</span>
               <p>
                 <span className="text-secondary-light">const</span>{" "}
-                <span className="text-primary-light">StackByte</span> ={" "}
+                <span className="text-primary-light">Portfolio</span> ={" "}
                 <span className="text-yellow-400">await</span>{" "}
                 <span className="text-primary-light">Dev</span>.
                 <span className="text-secondary-light">create</span>({`{`}
@@ -172,7 +172,7 @@ export default function TechStack3D() {
 
         {/* 2. System Monitor Card (Right, Floating in front) */}
         <div
-          className="floating-card absolute top-[20%] right-2 md:right-[5%] w-[240px] h-[260px] 
+          className="floating-card absolute top-[20%] right-2 md:right-[5%] w-60 h-[260px] 
                           bg-[#0d1117] rounded-xl border-2 border-secondary/20 shadow-2xl z-30
                        flex flex-col overflow-hidden"
           style={{ transform: "translateZ(80px)" }}
@@ -222,7 +222,7 @@ export default function TechStack3D() {
                 {[35, 55, 40, 70, 50, 85, 60, 75, 50, 65].map((h, i) => (
                   <div
                     key={i}
-                    className="flex-1 bg-gradient-to-t from-primary/10 to-primary/60 rounded-t-[1px]"
+                    className="flex-1 bg-linear-to-t from-primary/10 to-primary/60 rounded-t-[1px]"
                     style={{ height: `${h}%`, opacity: 0.8 + i / 20 }}
                   />
                 ))}
