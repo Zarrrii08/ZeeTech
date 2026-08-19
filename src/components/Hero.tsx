@@ -449,7 +449,7 @@ export default function Hero() {
 
           <div
             ref={statsRef}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 border-t border-white/10 pt-6 md:pt-8"
+            className="max-md:flex max-md:justify-center grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 border-t border-white/10 pt-6 md:pt-8"
           >
             {[
               { value: "04+", label: "Years Experience" },

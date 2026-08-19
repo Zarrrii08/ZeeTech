@@ -461,11 +461,11 @@ export default function Process() {
       ignoreOpacity={true}
       ref={sectionRef}
       id="process"
-      className="py-16 sm:py-24 md:py-32 overflow-hidden relative z-20"
+      className="pt-4 pb-16 sm:py-20 md:py-32 overflow-hidden relative z-20"
     >
       <CodeRain />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div ref={headerRef} className="mb-12 md:mb-16 lg:mb-20 text-center">
+        <div ref={headerRef} className="mb-8 md:mb-16 lg:mb-20 text-center">
           <h2
             ref={titleRef}
             style={{

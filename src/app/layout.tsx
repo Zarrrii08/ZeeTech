@@ -2,6 +2,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import IubendaScript from "@/components/IubendaScript";
 import PersonSchema from "@/components/PersonSchema";
 import ResourceHints from "@/components/ResourceHints";
+import RobotChat from "@/components/RobotChat";
 import SmoothScroll from "@/components/SmoothScroll";
 import { BackgroundProvider } from "@/context/BackgroundContext";
 import { Analytics } from "@vercel/analytics/next";
@@ -122,6 +123,7 @@ export default function RootLayout({
           <IubendaScript />
           <GoogleAnalytics />
           <SmoothScroll>{children}</SmoothScroll>
+          <RobotChat />
           <Analytics />
           <SpeedInsights />
         </BackgroundProvider>
