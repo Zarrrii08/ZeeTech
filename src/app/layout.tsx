@@ -39,6 +39,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://zaryabhayatkhan.dev"),
+  verification: {
+    google: "QzCT0BAc-ESchQPam1TN49TgoRe-_V8zOLsitc9aLBQ",
+  },
   title: {
     default: "Zaryab Hayat Khan | Software Engineer",
     template: "%s | Zaryab Hayat Khan",
