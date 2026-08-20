@@ -448,7 +448,7 @@ export default function ReadyToStart() {
       ignoreOpacity={true}
       ref={sectionRef}
       id="ready"
-      className="py-12 sm:py-32 md:py-40 overflow-hidden relative z-20 sm:pb-0"
+      className="py-16 sm:py-24 md:py-40 overflow-hidden relative z-20 sm:pb-0"
     >
       <div
         ref={orb1Ref}
@@ -491,7 +491,7 @@ export default function ReadyToStart() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col items-center justify-center min-h-[50vh] sm:min-h-[80vh]">
+        <div className="flex flex-col items-center justify-center min-h-[22rem] sm:min-h-[80vh]">
           <div
             ref={containerRef}
             className="text-center transform-none md:transform"
@@ -502,7 +502,7 @@ export default function ReadyToStart() {
             <div className="mb-8 md:mb-12">
               <h2
                 ref={word1Ref}
-                className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[14rem] 2xl:text-[18rem] font-black leading-none mb-4 md:mb-6 transform-none md:transform relative"
+                className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[14rem] 2xl:text-[18rem] font-black leading-none mb-3 md:mb-6 transform-none md:transform relative"
                 style={{
                   transformStyle: "preserve-3d",
                 }}
@@ -522,7 +522,7 @@ export default function ReadyToStart() {
 
               <h2
                 ref={word2Ref}
-                className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[14rem] 2xl:text-[18rem] font-black leading-none mb-4 md:mb-6 transform-none md:transform relative"
+                className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[14rem] 2xl:text-[18rem] font-black leading-none mb-3 md:mb-6 transform-none md:transform relative"
                 style={{
                   transformStyle: "preserve-3d",
                 }}
@@ -532,7 +532,7 @@ export default function ReadyToStart() {
 
               <h2
                 ref={word3Ref}
-                className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[14rem] 2xl:text-[18rem] font-black leading-none transform-none md:transform relative"
+                className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[14rem] 2xl:text-[18rem] font-black leading-none transform-none md:transform relative"
                 style={{
                   transformStyle: "preserve-3d",
                 }}

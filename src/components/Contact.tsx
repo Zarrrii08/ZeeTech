@@ -103,7 +103,7 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="pb-24 sm:py-32 md:py-36 relative overflow-hidden"
+      className="pt-4 pb-16 sm:py-24 md:py-36 relative overflow-hidden"
     >
       <div
         ref={bgGlowRef}
@@ -111,13 +111,13 @@ export default function Contact() {
         style={{ transform: "translateY(-20%)" }}
       />
       <div className="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary mb-3">
             Contact
           </p>
           <h2
             ref={titleRef}
-            className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight mb-6"
+            className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight mb-5 sm:mb-6"
           >
             Ready to launch your next web project?
           </h2>
@@ -136,7 +136,7 @@ export default function Contact() {
             return (
               <div
                 key={option.title}
-                className="group rounded-3xl border border-white/10 bg-white/5 p-8 flex flex-col justify-between gap-6 transition-all duration-300 hover:bg-white/10 hover:-translate-y-1"
+                className="group rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8 flex flex-col justify-between gap-5 sm:gap-6 transition-all duration-300 hover:bg-white/10 hover:-translate-y-1"
               >
                 <div>
                   <div className="inline-flex items-center justify-center rounded-2xl bg-primary/10 text-primary w-12 h-12 mb-6 transition-all duration-300 group-hover:scale-110">

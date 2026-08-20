@@ -511,7 +511,7 @@ export default function About() {
     <section
       ref={containerRef}
       id="about"
-      className="py-24 sm:py-32 relative overflow-hidden"
+      className="pt-4 pb-16 sm:py-24 md:py-32 relative overflow-hidden"
     >
       <div className="absolute inset-0 opacity-[0.015] mix-blend-overlay pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=')] hidden md:block" />
 
@@ -527,7 +527,7 @@ export default function About() {
       <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-size-[50px_50px] mask-[radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
           <div className="relative">
             <div
               ref={storyRef}
@@ -565,7 +565,7 @@ export default function About() {
 
               <div
                 ref={textRef}
-                className="space-y-6 text-lg text-gray-400 leading-relaxed"
+                className="space-y-4 sm:space-y-6 text-base sm:text-lg text-gray-400 leading-relaxed"
               >
                 <p>
                   I am a Software Engineer and Web Developer specializing in
