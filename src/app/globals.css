@@ -224,3 +224,93 @@ html.lenis body {
   background-size: 300% auto;
   animation: gradient 8s linear infinite;
 }
+
+@keyframes robot-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(2deg);
+  }
+}
+
+@keyframes robot-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes robot-blink {
+  0%,
+  44%,
+  48%,
+  100% {
+    transform: scaleY(1);
+  }
+  46% {
+    transform: scaleY(0.15);
+  }
+}
+
+@keyframes robot-typing {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+.robot-3d {
+  animation: robot-float 4s ease-in-out infinite;
+  perspective: 500px;
+  transform-style: preserve-3d;
+}
+
+.robot-head {
+  transform: rotateY(-8deg) rotateX(4deg) translateZ(8px);
+  transform-style: preserve-3d;
+}
+
+.robot-face {
+  transform: translateZ(14px);
+}
+
+.robot-eye {
+  animation: robot-blink 5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.robot-orbit {
+  animation: robot-orbit 12s linear infinite;
+  border-top-color: var(--primary);
+  border-right-color: transparent;
+}
+
+.robot-glow {
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.15);
+}
+
+.robot-typing-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--primary);
+  animation: robot-typing 0.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .robot-3d,
+  .robot-eye,
+  .robot-orbit,
+  .robot-typing-dot {
+    animation: none;
+  }
+}
